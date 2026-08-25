@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.rikkei'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit 5 Jupiter API & Engine
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Bổ sung launcher để sửa lỗi Gradle Test Executor
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,25 @@
+spring:
+    application:
+        name: SS11-B2
+    ai:
+        openai:
+            api-key: ${OPEN_ROUTER_API_KEY:demo-key}
+
+management:
+    tracing:
+        sampling:
+            probability: 1.0
+    otlp:
+        tracing:
+            endpoint: ${LANGFUSE_BASE_URL:http://localhost:3000}/api/public/otel/v1/traces
+            headers:
+                Authorization: "Basic ${BASE64_AUTH}"
+            export-timeout: 2s
+
+# Cấu hình OpenTelemetry Batch Span Processor bảo vệ hàng đợi
+otel:
+    bsp:
+        schedule-delay: 5000ms        # Khoảng trễ gửi batch định kỳ (5s)
+        max-queue-size: 2048          # Kích thước hàng đợi tối đa trong RAM
+        max-export-batch-size: 512    # Số lượng spans tối đa gửi trong 1 batch
+        export-timeout: 2000ms        # Timeout mỗi đợt export (2s)
